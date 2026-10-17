@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>Returning to the Batcomputer</title>
+<script>
+  // Tesla's sign-in sends the browser here (its form needs a public address). Pass the one-time code and state
+  // straight on to the home server over Tailscale. The code is useless without the app secret, which only the
+  // server holds, and the server checks the state it created. Only ever forwards to this one fixed address.
+  var q = new URLSearchParams(location.search), out = new URLSearchParams();
+  ["code", "state", "error", "error_description", "locale", "issuer"].forEach(function (k) { if (q.has(k)) out.set(k, q.get(k)); });
+  location.replace("https://jeb-server.tail5a0a6d.ts.net:8086/callback?" + out.toString());
+</script>
+</head>
+<body>
+<p>Returning to the Batcomputer… If nothing happens, make sure Tailscale is connected on this device.</p>
+</body>
+</html>
